@@ -24,7 +24,7 @@ function setup(){
  
     ball = new Sprite(16,1000);
     ball.friction = 0;
-    ball.rotationLock = false;
+    ball.rotationLock = true;
     ball.w = 30;
     ball.h = 34;
     ball.spriteSheet = playerImg
