@@ -8,7 +8,7 @@ let coin
 let score
 let tileSize = 32;
 let map, ground, brick, wall;
-
+ 
 function preload(){
     bg=loadImage('background 2.jpg')
     groundImg = loadImage('ground.png');
@@ -16,12 +16,12 @@ function preload(){
     coinImg = loadImage('coin.png')
     playerImg = loadImage('player2.png')
 }
-
+ 
 function setup(){
     new Canvas(windowWidth,1000);
     displayMode('centered');
     world.gravity.y = 10;
-
+ 
     ball = new Sprite(16,1000);
     ball.friction = 0;
     ball.rotationLock = false;
@@ -29,33 +29,33 @@ function setup(){
     ball.h = 34;
     ball.spriteSheet = playerImg
     ball.addAnis({
-        spin: { row: 0, frames: 4, frameDelay:5 }, 
+        spin: { row: 0, frames: 4, frameDelay:5 },
         idle: { row: 1, frame: 1,}
       });
       ball.scale = 1;
       ball.debug = true;
-
+ 
     ground = new Group();
     ground.collider = 's';
     ground.tile = '=';
     ground.image = groundImg;
     ground.w = tileSize;
     ground.h = tileSize;
-
-  
+ 
+ 
     wall = new Group();
     wall.collider = 's';
     wall.tile = 'w';
     wall.w = tileSize;
     wall.h = tileSize;
-
+ 
     brick = new Group();
-    brick.collider = 's';   
+    brick.collider = 's';  
     brick.tile = 'b';
     brick.image = brickImg;
     brick.w = tileSize;
     brick.h = tileSize;
-
+ 
     coin = new Group();
     coin.w = 16;
     coin.h = 15;
@@ -66,9 +66,9 @@ function setup(){
     coin.tile = "l";
     coin.collider = 'static';
     coin.scale = 4;
-
+ 
     ``
-
+ 
     new Tiles(
         [
             '......................................................................................................................................................................................................................................................................................',
@@ -119,14 +119,14 @@ function setup(){
         tileSize - 1
       );
     }
-
+ 
 function draw(){
     clear()
      background(bg);
     textSize(100)
     fill('white')
     //text("please money", 200,200)
-
+ 
     if (ball.x < 200) {
         camera.x = 200;
       } else {
@@ -137,15 +137,15 @@ function draw(){
       } else {
         camera.y = ball.y-100;
       }
-  
+ 
       camera.on();
       camera.off();
-
+ 
     if (kb.pressing('up') && !isJumping){
         ball.vel.y = -7;
         isJumping = true;
         ball.changeAni('spin');
-
+ 
  
         if (kb.pressing('left')){
             ball.vel.x = -maxSpeed;
@@ -157,36 +157,36 @@ function draw(){
             ball.mirror.x = true;
         }
     }
-
-
+ 
+ 
     if (kb.pressing('down') && isJumping){
-        ball.vel.y += 4; 
+        ball.vel.y += 4;
         ball.changeAni('idle');
     }
-
+ 
     if(ball.collides(ground)){
         isJumping = false;
-        ball.vel.y = 0; 
-        ball.vel.x = 0; 
+        ball.vel.y = 0;
+        ball.vel.x = 0;
         ball.friction = 1;
     } else {
         ball.friction = 0;
     }
-
+ 
     if(ball.collides(brick)){
         isJumping = false;
-        ball.vel.y = 0; 
-        ball.vel.x = 0; 
+        ball.vel.y = 0;
+        ball.vel.x = 0;
         ball.friction = 1;
     } else {
         ball.friction = 0;
     }
-
+ 
 if(ball.collides(coin)){
     coin.remove();
 }
-
-
+ 
+ 
     if (ball.y > 1500) {
         ball.x = 16;
         ball.y = 16;
@@ -194,5 +194,6 @@ if(ball.collides(coin)){
         ball.vel.y = 0;
         isJumping = false;
     }
-
+ 
 }
+ 
